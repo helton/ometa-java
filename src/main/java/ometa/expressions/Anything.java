@@ -3,19 +3,19 @@ package ometa.expressions;
 import ometa.exceptions.OMetaException;
 import ometa.streams.OMetaStream;
 
-public class Anything<T> extends OMetaExpression<T> {
+public class Anything<T> extends BaseOMetaExpression<T> {
 
     public Anything(OMetaStream<T> stream) {
         super(stream);
     }
 
     @Override
-    boolean isMatch() {
+    public boolean isMatch() {
         return !getStream().isEmpty();
     }
 
     @Override
-    void match() {
+    public void match() {
         if (isMatch())
             getStream().get();
         else

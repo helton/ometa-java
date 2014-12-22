@@ -2,17 +2,11 @@ package ometa.expressions;
 
 import ometa.streams.OMetaStream;
 
-public abstract class OMetaExpression<T> {
-    private OMetaStream<T> stream;
+public interface OMetaExpression<T> {
+    boolean isMatch();
+    void match();
 
-    public OMetaExpression(OMetaStream<T> stream) {
-        this.stream = stream;
+    default OMetaStream<T> getStream() {
+        return null;
     }
-
-    public OMetaStream<T> getStream() {
-        return stream;
-    }
-
-    abstract boolean isMatch();
-    abstract void match();
 }

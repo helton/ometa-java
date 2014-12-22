@@ -16,6 +16,11 @@ public class BaseStream<T> implements OMetaStream<T> {
     }
 
     @Override
+    public T peek() {
+        return stream.get(index);
+    }
+
+    @Override
     public T get() {
         return stream.get(index++);
     }
@@ -29,4 +34,10 @@ public class BaseStream<T> implements OMetaStream<T> {
     public boolean isEmpty() {
         return stream.size() == index;
     }
+
+    @Override
+    public long size() {
+        return stream.size();
+    }
+
 }

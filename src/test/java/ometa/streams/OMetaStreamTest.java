@@ -44,4 +44,23 @@ public abstract class OMetaStreamTest<T> {
         Assert.assertTrue(stream.isEmpty());
     }
 
+    @Test
+    public void shouldReturnSizeCorrectly() throws Exception {
+        Assert.assertEquals(3, stream.size());
+        stream = new BaseStream<>();
+        Assert.assertEquals(0, stream.size());
+    }
+
+    @Test
+    public void whenCallPeekShouldNotRemoveElementFromStream() throws Exception {
+        stream.get();
+        stream.get();
+        T first = stream.peek();
+        T second = stream.peek();
+        T third = stream.peek();
+        Assert.assertEquals(item3, first);
+        Assert.assertEquals(first, second);
+        Assert.assertEquals(second, third);
+    }
+
 }
