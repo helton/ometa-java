@@ -8,24 +8,26 @@ public class NegationTest {
 
     @Test
     public void shouldMatchWhenInnerExpressionNotMatches() throws Exception {
-        Exact<Character> exact = new Exact<>(new CharacterStream("a"), 'a');
-        Negation<Exact<Character>> negation = new Negation<>(exact);
+        Exactly<Character> exactly = new Exactly<>(new CharacterStream("a"), 'a');
+        Negation<Character, Exactly<Character>> negation = new Negation<>(exactly);
         Assert.assertFalse(negation.isMatch());
     }
 
     @Test
     public void shouldNotMatchWhenInnerExpressionMatches() throws Exception {
-        Exact<Character> exact = new Exact<>(new CharacterStream("b"), 'a');
-        Negation<Exact<Character>> negation = new Negation<>(exact);
+        Exactly<Character> exactly = new Exactly<>(new CharacterStream("b"), 'a');
+        Negation<Character, Exactly<Character>> negation = new Negation<>(exactly);
         Assert.assertTrue(negation.isMatch());
     }
 
     @Test
     public void shouldConsumeTextWhenInnerExpressionDoesntMatch() throws Exception {
-        Exact<Character> exact = new Exact<>(new CharacterStream("b"), 'a');
-        Negation<Exact<Character>> negation = new Negation<>(exact);
+        Exactly<Character> exactly = new Exactly<>(new CharacterStream("bc"), 'a');
+        Negation<Character, Exactly<Character>> negation = new Negation<>(exactly);
         Assert.assertTrue(negation.isMatch());
         negation.match();
-        Assert.assertFalse(negation.isMatch());
+        Assert.assertTrue(negation.isMatch());
+        negation.match();
+        Assert.assertTrue(negation.isMatch()); //EOF matches ~"a"
     }
 }

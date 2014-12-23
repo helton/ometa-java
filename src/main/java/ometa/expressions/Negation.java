@@ -1,20 +1,14 @@
 package ometa.expressions;
 
-public class Negation<T extends OMetaExpression<?>> implements OMetaExpression<T> {
-    private T innerExpression;
+public class Negation<S, T extends OMetaBaseExpression<S>> extends OMetaExpressionContainer<S, T> {
 
     public Negation(T innerExpression) {
-        this.innerExpression = innerExpression;
+        super(innerExpression);
     }
 
     @Override
     public boolean isMatch() {
-        return !innerExpression.getStream().isEmpty() && !innerExpression.isMatch();
-    }
-
-    @Override
-    public void match() {
-        innerExpression.getStream().get();
+        return !getInnerExpression().isMatch();
     }
 
 }
